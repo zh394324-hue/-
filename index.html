@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منصة المشرف العام - النسخة الذكية</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Noto Kufi Arabic', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a' },
+                        accent: { DEFAULT: '#6366f1', dark: '#4f46e5' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f8fafc; transition: all 0.3s; font-family: 'Noto Kufi Arabic', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .dark body { background-color: #0f172a; color: #f1f5f9; }
+        .progress-ring__circle { transition: stroke-dashoffset 0.6s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .line-through-custom { text-decoration: line-through; opacity: 0.4; filter: grayscale(1); }
+        
+        #toast-container { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100; pointer-events: none; }
+        .toast { pointer-events: auto; min-width: 320px; }
+        .spinner { border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="text-brand-800 min-h-screen pb-24">
+
+    <header class="bg-white/80 backdrop-blur-xl border-b border-brand-200 sticky top-0 z-40 dark:bg-brand-900/80 dark:border-brand-800 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-accent p-2.5 rounded-2xl text-white shadow-lg shadow-accent/30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div class="flex flex-col text-right">
+                    <h1 class="text-sm font-black dark:text-white md:text-lg">منصة المشرف العام ✨</h1>
+                    <span class="text-[9px] text-brand-400 font-bold uppercase tracking-widest">تحليل ذكي • رؤية فنية • إدارة شاملة</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button type="button" onclick="document.documentElement.classList.toggle('dark')" class="p-2.5 rounded-xl bg-brand-50 dark:bg-brand-800 text-sm border border-brand-200 dark:border-brand-700">🌓</button>
+                <button type="button" onclick="window.openAddModal(null)" class="bg-accent hover:bg-accent-dark text-white px-5 py-2.5 rounded-xl text-[11px] font-bold shadow-lg shadow-accent/20 active:scale-95 transition-all">
+                    إضافة هدف جديد
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-4 lg:order-2 space-y-5">
+                <div class="bg-white rounded-[2rem] border border-brand-200 p-8 dark:bg-brand-900 dark:border-brand-800 text-center shadow-xl">
+                    <h3 class="font-bold text-[10px] mb-8 dark:text-white uppercase tracking-[0.2em] opacity-50">مؤشر الإنجاز العام</h3>
+                    <div class="relative inline-flex items-center justify-center mb-8">
+                        <svg class="w-40 h-40">
+                            <circle class="text-brand-100 dark:text-brand-800" stroke-width="10" stroke="currentColor" fill="transparent" r="65" cx="80" cy="80"/>
+                            <circle id="progress-ring" class="text-accent progress-ring__circle" stroke-width="10" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke-linecap="round" stroke="currentColor" fill="transparent" r="65" cx="80" cy="80"/>
+                        </svg>
+                        <div class="absolute flex flex-col items-center">
+                            <span id="total-percent" class="text-3xl font-black text-brand-900 dark:text-white">0%</span>
+                            <span class="text-[9px] font-bold text-brand-400 mt-1">مكتمل</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-brand-50 dark:bg-brand-800 p-3 rounded-2xl">
+                            <span id="completed-tasks-count" class="block text-lg font-bold dark:text-white">0</span>
+                            <span class="text-[8px] text-brand-400 font-bold uppercase">المكتملة</span>
+                        </div>
+                        <div class="bg-brand-50 dark:bg-brand-800 p-3 rounded-2xl">
+                            <span id="total-tasks-count" class="block text-lg font-bold dark:text-white">0</span>
+                            <span class="text-[8px] text-brand-400 font-bold uppercase">الإجمالي</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="getMotivationFromAdmin()" class="w-full bg-accent text-white p-4 rounded-2xl flex items-center justify-center gap-3 hover:shadow-lg transition-all active:scale-95">
+                            <span class="text-xl">🎙️</span>
+                            <span class="text-xs font-bold">رسالة صوتية تشجيعية ✨</span>
+                        </button>
+                        <button onclick="generateVisionImage()" class="w-full bg-purple-500 text-white p-4 rounded-2xl flex items-center justify-center gap-3 hover:shadow-lg transition-all active:scale-95">
+                            <span class="text-xl">🎨</span>
+                            <span class="text-xs font-bold">صورة ملهمة لأهدافي ✨</span>
+                        </button>
+                        <label class="w-full bg-emerald-500 text-white p-4 rounded-2xl flex items-center justify-center gap-3 cursor-pointer hover:shadow-lg transition-all active:scale-95">
+                            <span class="text-xl">📷</span>
+                            <span class="text-xs font-bold">حلل صورتي واقترح مهام ✨</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="analyzeImage(this)">
+                        </label>
+                        <button onclick="openTutorModal()" class="w-full bg-brand-50 dark:bg-brand-800 p-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-brand-100 transition-all">
+                            <span class="text-xl">🧠</span>
+                            <span class="text-xs font-bold dark:text-brand-200">استشارة المشرف الذكي</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="vision-container" class="hidden p-4 bg-white dark:bg-brand-900 rounded-[2rem] border border-brand-200 dark:border-brand-800">
+                    <p class="text-[10px] font-black mb-3 text-brand-400 uppercase">لوحة الرؤية الحالية</p>
+                    <img id="vision-img" src="" class="w-full h-48 object-cover rounded-2xl mb-2" alt="Vision">
+                    <p id="vision-desc" class="text-[9px] text-brand-500 italic text-center"></p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 lg:order-1 space-y-4" id="main-container"></div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <div id="input-modal" class="fixed inset-0 bg-brand-900/70 backdrop-blur-md hidden z-50 flex items-center justify-center p-6">
+        <div class="bg-white dark:bg-brand-900 w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl">
+            <h3 class="text-lg font-black mb-6 dark:text-white text-center" id="modal-title">تخطيط جديد 🚀</h3>
+            <div class="space-y-4 mb-6">
+                <input type="text" id="modal-input" placeholder="ما هو هدفك اليوم؟" class="w-full p-4 rounded-2xl bg-brand-50 dark:bg-brand-800 outline-none text-right text-sm">
+                <label class="flex items-center gap-3 p-4 rounded-2xl bg-accent/5 border border-accent/10 cursor-pointer">
+                    <input type="checkbox" id="ai-plan-check" class="w-5 h-5 accent-accent" checked>
+                    <span class="text-xs font-bold text-brand-700 dark:text-brand-200">تخطيط ذكي بواسطة Gemini ✨</span>
+                </label>
+            </div>
+            <div class="flex gap-3">
+                <button type="button" id="modal-confirm" class="flex-grow bg-accent text-white py-4 rounded-2xl font-bold">حفظ</button>
+                <button type="button" onclick="window.closeModal('input-modal')" class="w-24 bg-brand-100 dark:bg-brand-800 text-brand-500 py-4 rounded-2xl font-bold">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutor-modal" class="fixed inset-0 bg-brand-900/70 backdrop-blur-md hidden z-50 flex items-center justify-center p-6">
+        <div class="bg-white dark:bg-brand-900 w-full max-w-lg rounded-[2.5rem] p-8 shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-2xl">🧠</div>
+                <div class="text-right">
+                    <h3 class="text-md font-black dark:text-white">المشرف الذكي ✨</h3>
+                    <p class="text-[10px] text-brand-400">مدعوم بتقنية Gemini لمساعدتك</p>
+                </div>
+            </div>
+            <div id="tutor-chat" class="flex-grow overflow-y-auto space-y-4 mb-6 text-right p-2 scrollbar-hide"></div>
+            <div class="flex gap-2 bg-brand-50 dark:bg-brand-800 p-2 rounded-3xl items-center">
+                <input type="text" id="tutor-input" placeholder="اسأل عن أي شيء..." class="flex-grow bg-transparent p-3 outline-none text-xs text-right dark:text-white">
+                <button onclick="askAdmin()" id="tutor-send-btn" class="bg-accent text-white p-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
+                    🚀
+                </button>
+            </div>
+            <button onclick="window.closeModal('tutor-modal')" class="mt-4 text-[10px] text-brand-400 text-center font-bold">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = ""; 
+        const STORAGE_KEY = 'universal_life_dashboard_v2_fixed';
+        let treeData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
+            { id: 'initial_1', title: 'الأهداف الشخصية 🎯', done: false, children: [] },
+            { id: 'initial_2', title: 'العمل والإنتاجية 💼', done: false, children: [] }
+        ];
+        let currentParentId = null;
+        let isSpeaking = false;
+
+        function saveAndRender() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(treeData));
+            renderUI();
+        }
+
+        window.closeModal = function(id) { 
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden'); 
+        };
+
+        window.openAddModal = function(parentId) {
+            currentParentId = parentId;
+            document.getElementById('modal-input').value = "";
+            document.getElementById('input-modal').classList.remove('hidden');
+        };
+
+        window.openTutorModal = function() {
+            document.getElementById('tutor-modal').classList.remove('hidden');
+        };
+
+        async function callGemini(prompt, system = "", model = "gemini-2.5-flash-preview-09-2025") {
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: system }] } };
+                const res = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
+                const data = await res.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text;
+            } catch (e) {
+                console.error("Gemini Error:", e);
+                return null;
+            }
+        }
+
+        async function planLifeTaskByAI(title, parentId) {
+            showToast("جاري التخطيط الذكي... ✨");
+            const res = await callGemini(`Goal: "${title}". Suggest 4 concrete sub-tasks. Output only titles, one per line. Arabic language.`);
+            if (res) {
+                const tasks = res.split('\n').filter(t => t.trim()).slice(0, 4);
+                tasks.forEach((t, i) => {
+                    const item = { id: `ai_${Date.now()}_${i}`, title: t.replace(/^[-\d.]+\s*/, '').trim(), done: false, children: [] };
+                    injectItem(treeData, parentId, item);
+                });
+                saveAndRender();
+            }
+        }
+
+        function injectItem(list, targetId, newItem) {
+            for (let item of list) {
+                if (item.id === targetId) { item.children.push(newItem); return true; }
+                if (item.children && injectItem(item.children, targetId, newItem)) return true;
+            }
+        }
+
+        async function generateVisionImage() {
+            const currentGoals = treeData.map(t => t.title).join(", ");
+            showToast("جاري رسم الرؤية... 🎨✨");
+            try {
+                const prompt = `Inspiring, digital art for life goals: ${currentGoals}.`;
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+                const res = await fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({ instances: { prompt }, parameters: { sampleCount: 1 } })
+                });
+                const data = await res.json();
+                if (data.predictions?.[0]?.bytesBase64Encoded) {
+                    const imgUrl = `data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`;
+                    document.getElementById('vision-img').src = imgUrl;
+                    document.getElementById('vision-container').classList.remove('hidden');
+                    document.getElementById('vision-desc').textContent = "رؤية بصرية لأهدافك";
+                    showToast("تم التحديث! 🚀");
+                }
+            } catch (e) { showToast("تعذر التوليد حالياً."); }
+        }
+
+        async function analyzeImage(input) {
+            if (!input.files || !input.files[0]) return;
+            showToast("تحليل الصورة... 📷✨");
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const base64 = e.target.result.split(',')[1];
+                const payload = {
+                    contents: [{ role: "user", parts: [
+                        { text: "حلل الصورة واقترح 3 مهام عملية باللغة العربية كعناوين فقط." },
+                        { inlineData: { mimeType: "image/png", data: base64 } }
+                    ]}]
+                };
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST', body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+                const tasksText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (tasksText) {
+                    const tasks = tasksText.split('\n').filter(t => t.trim()).slice(0, 3);
+                    tasks.forEach(t => treeData.push({ id: `img_${Date.now()}`, title: "✨ مقترح: " + t.trim(), done: false, children: [] }));
+                    saveAndRender();
+                    showToast("تمت الإضافة! ✅");
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function speakText(text) {
+            if (isSpeaking) return;
+            isSpeaking = true;
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Say in Arabic: ${text}` }] }],
+                        generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } },
+                        model: "gemini-2.5-flash-preview-tts"
+                    })
+                });
+                const data = await res.json();
+                const pcm = data.candidates[0].content.parts[0].inlineData.data;
+                await playPCM(pcm);
+            } catch (e) { console.error(e); }
+            isSpeaking = false;
+        }
+
+        async function playPCM(base64) {
+            const binary = atob(base64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+            const wav = createWav(bytes, 24000);
+            const audio = new Audio(URL.createObjectURL(new Blob([wav], { type: 'audio/wav' })));
+            return new Promise(r => { audio.onended = r; audio.play(); });
+        }
+
+        function createWav(samples, sampleRate) {
+            const buf = new ArrayBuffer(44 + samples.length);
+            const view = new DataView(buf);
+            const write = (o, s) => { for(let i=0; i<s.length; i++) view.setUint8(o+i, s.charCodeAt(i)); };
+            write(0, 'RIFF'); view.setUint32(4, 36 + samples.length, true);
+            write(8, 'WAVE'); write(12, 'fmt '); view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate*2, true);
+            view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+            write(36, 'data'); view.setUint32(40, samples.length, true);
+            new Uint8Array(buf, 44).set(samples); return buf;
+        }
+
+        async function getMotivationFromAdmin() {
+            const res = await callGemini("وجه رسالة صوتية تشجيعية قصيرة وبالعربية.");
+            if (res) speakText(res);
+        }
+
+        async function askAdmin() {
+            const input = document.getElementById('tutor-input');
+            const chat = document.getElementById('tutor-chat');
+            const q = input.value.trim();
+            if(!q) return;
+            chat.innerHTML += `<div class="bg-accent text-white p-4 rounded-2xl mr-8">أنا: ${q}</div>`;
+            input.value = "";
+            const res = await callGemini(q, "أنت المشرف العام، ساعد المستخدم.");
+            if (res) {
+                chat.innerHTML += `<div class="bg-white dark:bg-brand-800 p-4 rounded-2xl ml-8 dark:text-white border border-brand-200">✨ ${res}</div>`;
+                chat.scrollTop = chat.scrollHeight;
+                speakText(res);
+            }
+        }
+
+        function renderUI() {
+            const main = document.getElementById('main-container');
+            if (main) {
+                main.innerHTML = treeData.map(item => buildHTML(item)).join('');
+            }
+            updateStats();
+        }
+
+        function buildHTML(item, depth = 0) {
+            const children = item.children?.map(c => buildHTML(c, depth + 1)).join('') || '';
+            const isRoot = depth === 0;
+            return `
+                <div class="${isRoot ? 'bg-white dark:bg-brand-900 rounded-3xl p-5 shadow-sm border border-brand-100 dark:border-brand-800 mb-4' : 'mr-6 mt-3 border-r-2 border-brand-50 dark:border-brand-800 pr-4'} fade-in">
+                    <div class="flex items-center justify-between group">
+                        <div class="flex items-center gap-3 cursor-pointer flex-grow" onclick="toggleStatus('${item.id}')">
+                            <div class="w-5 h-5 rounded-md border-2 ${item.done ? 'bg-green-500 border-green-500' : 'border-brand-200'} flex items-center justify-center">
+                                ${item.done ? '<span class="text-white text-[10px]">✓</span>' : ''}
+                            </div>
+                            <span class="${item.done ? 'line-through-custom' : ''} font-bold text-sm dark:text-brand-100">${item.title}</span>
+                        </div>
+                        <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="openAddModal('${item.id}')" class="p-1">➕</button>
+                            <button onclick="deleteItem('${item.id}')" class="p-1 text-red-400">🗑️</button>
+                        </div>
+                    </div>
+                    ${children}
+                </div>
+            `;
+        }
+
+        function updateStats() {
+            let t=0, d=0;
+            const walk = (l) => l.forEach(i => { t++; if(i.done) d++; walk(i.children); });
+            walk(treeData);
+            const pct = t === 0 ? 0 : Math.round((d/t)*100);
+            
+            const elPercent = document.getElementById('total-percent');
+            if (elPercent) elPercent.textContent = pct + '%';
+            
+            const elTotal = document.getElementById('total-tasks-count');
+            if (elTotal) elTotal.textContent = t;
+            
+            const elDone = document.getElementById('completed-tasks-count');
+            if (elDone) elDone.textContent = d;
+            
+            const elRing = document.getElementById('progress-ring');
+            if (elRing) elRing.style.strokeDashoffset = 408.4 - (pct/100*408.4);
+        }
+
+        function toggleStatus(id) {
+            const f = (l) => l.forEach(i => { if(i.id === id) i.done = !i.done; f(i.children); });
+            f(treeData); saveAndRender();
+        }
+
+        function deleteItem(id) {
+            const f = (l) => l.filter(i => { i.children = f(i.children); return i.id !== id; });
+            treeData = f(treeData); saveAndRender();
+        }
+
+        document.getElementById('modal-confirm').onclick = async () => {
+            const val = document.getElementById('modal-input').value;
+            if(!val) return;
+            const item = { id: 'id_'+Date.now(), title: val, done: false, children: [] };
+            if(!currentParentId) treeData.push(item);
+            else injectItem(treeData, currentParentId, item);
+            saveAndRender();
+            window.closeModal('input-modal');
+            if(document.getElementById('ai-plan-check').checked) await planLifeTaskByAI(val, item.id);
+        };
+
+        function showToast(m) {
+            const c = document.getElementById('toast-container');
+            const t = document.createElement('div');
+            t.className = "toast bg-white dark:bg-brand-800 p-4 rounded-2xl shadow-xl mb-3 border-r-4 border-accent text-[10px] font-bold dark:text-white fade-in";
+            t.textContent = m;
+            c.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        renderUI();
+    </script>
+</body>
+</html>
