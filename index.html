@@ -62,3 +62,364 @@
         </div>
 
         <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-6 py-4 space-y-3 flex flex-col">
+                <a href="#home" class="mobile-link block text-gray-600 hover:text-emerald-600">الرئيسية</a>
+                <a href="#about" class="mobile-link block text-gray-600 hover:text-emerald-600">من نحن</a>
+                <a href="#services" class="mobile-link block text-gray-600 hover:text-emerald-600">خدماتنا</a>
+                <a href="#portfolio" class="mobile-link block text-gray-600 hover:text-emerald-600">أعمالنا</a>
+                <a href="#contact" class="mobile-link block text-emerald-600 font-bold">تواصل معنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white relative">
+        <div class="container mx-auto px-6 mt-16">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up">
+                مؤسسة <span class="text-amber-400">فجر الإسلام</span>
+                <br>للرخام والجرانيت
+            </h1>
+            <p class="text-lg md:text-xl mb-10 text-gray-200 max-w-2xl mx-auto">
+                لمسة فخامة تدوم طويلاً. خبرة أكثر من 27 عاماً في توريد وتركيب أفخم أنواع الرخام والجرانيت للأرضيات، الواجهات، والمطابخ.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#portfolio" class="px-8 py-3 bg-emerald-600 rounded-full font-semibold hover:bg-emerald-700 transition transform hover:scale-105 shadow-lg border-2 border-emerald-600">
+                    شاهد أعمالنا
+                </a>
+                <a href="#contact" class="px-8 py-3 bg-transparent border-2 border-white rounded-full font-semibold hover:bg-white hover:text-emerald-800 transition transform hover:scale-105">
+                    احصل على عرض سعر
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <a href="#about" class="absolute bottom-10 animate-bounce text-white">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </a>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white marble-texture">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Marble texture" class="rounded-2xl shadow-2xl">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-emerald-800 mb-6 border-r-4 border-amber-400 pr-4">من نحن</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-lg">
+                        تعتبر مؤسسة فجر الإسلام علامة بارزة في عالم الرخام والجرانيت. بخبرة تمتد لأكثر من 27 عاماً، قدمنا خلالها أرقى الحلول الديكورية للمنازل، الفلل، والقصور.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-8 text-lg">
+                        نتميز بدقة التنفيذ واختيار أجود الخامات الطبيعية والمستوردة لضمان المتانة والجمال الذي يليق بعملائنا الكرام. فريقنا من الفنيين المحترفين يضمن لكم تركيباً مثالياً وتشطيباً عالي الجودة.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                            <span>خبرة 27 عاماً في السوق</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                            <span>توريد كافة أنواع الرخام المصري والمستورد</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                            <span>دقة متناهية في التركيب والتشطيب (جلي وتلميع)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-emerald-800 mb-4">خدماتنا</h2>
+            <p class="text-gray-600 mb-16 max-w-2xl mx-auto">كل ما يخص الرخام والجرانيت تحت سقف واحد</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition hover:-translate-y-2 group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600 transition">
+                        <i class="fa-solid fa-layer-group text-2xl text-emerald-600 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">الأرضيات والحوائط</h3>
+                    <p class="text-gray-500">تركيب أرضيات الرخام والجرانيت بأحدث التصاميم (Waterjet) وتكسية الحوائط للمداخل والصالات.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition hover:-translate-y-2 group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600 transition">
+                        <i class="fa-solid fa-stairs text-2xl text-emerald-600 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">السلالم والمداخل</h3>
+                    <p class="text-gray-500">تنفيذ السلالم الداخلية والخارجية والدرج الدائري بأشكال فنية مميزة تضيف فخامة للمكان.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition hover:-translate-y-2 group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600 transition">
+                        <i class="fa-solid fa-kitchen-set text-2xl text-emerald-600 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">المطابخ والمغاسل</h3>
+                    <p class="text-gray-500">تصنيع وتركيب أسطح المطابخ (Kitchinet) وأحواض الحمام من الجرانيت والرخام الطبيعي والصناعي.</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 justify-center max-w-4xl mx-auto">
+                 <!-- Service 4 -->
+                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition hover:-translate-y-2 group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600 transition">
+                        <i class="fa-solid fa-building text-2xl text-emerald-600 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">الواجهات الخارجية</h3>
+                    <p class="text-gray-500">تركيب واجهات حجر وجرانيت ميكانيك أو مونة، تتحمل العوامل الجوية وتعطي مظهراً راقياً.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition hover:-translate-y-2 group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600 transition">
+                        <i class="fa-solid fa-gem text-2xl text-emerald-600 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">الجلي والتلميع</h3>
+                    <p class="text-gray-500">خدمات جلي الرخام القديم وإعادة لمعانه كأنه جديد باستخدام أحدث أقراص الألماس والكريستال.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-emerald-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-amber-400 mb-2">27+</div>
+                    <div class="text-sm opacity-80">سنة خبرة</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-amber-400 mb-2">500+</div>
+                    <div class="text-sm opacity-80">مشروع سكني وتجاري</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-amber-400 mb-2">100+</div>
+                    <div class="text-sm opacity-80">نوع رخام وجرانيت</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-amber-400 mb-2">100%</div>
+                    <div class="text-sm opacity-80">دقة في التسليم</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-emerald-800 mb-4">معرض أعمالنا</h2>
+                <div class="w-24 h-1 bg-amber-400 mx-auto rounded"></div>
+                <p class="text-gray-600 mt-4">نماذج من تنفيذنا للرخام والجرانيت</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Kitchen Countertop" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">مطبخ رخام فاخر</h4>
+                            <p class="text-gray-300 text-sm mt-1">تركيب أسطح رخام طبيعي مع جزيرة وسطية</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Marble Stairs" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">درج داخلي</h4>
+                            <p class="text-gray-300 text-sm mt-1">درج رخام إمبرادور مع درابزين زجاجي</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Flooring" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">أرضيات رخام</h4>
+                            <p class="text-gray-300 text-sm mt-1">أرضيات صالة رخام كريما مارفل</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1628744876497-eb30460be9f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bathroom Vanity" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">مغاسل رخام</h4>
+                            <p class="text-gray-300 text-sm mt-1">تفصيل مغاسل رخام مودرن</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1599809275671-b5942cabc7ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Facade" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">واجهات خارجية</h4>
+                            <p class="text-gray-300 text-sm mt-1">تكسية واجهة فيلا بالجرانيت</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lobby" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition duration-300 flex items-end p-6">
+                        <div>
+                            <h4 class="text-white text-xl font-bold">مداخل عمارات</h4>
+                            <p class="text-gray-300 text-sm mt-1">مدخل فندقي فاخر من الرخام والجرانيت</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#contact" class="inline-block px-8 py-3 border border-emerald-600 text-emerald-600 rounded-full hover:bg-emerald-600 hover:text-white transition">اطلب معاينة لمشروعك</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-2xl shadow-xl overflow-hidden">
+                <!-- Contact Info -->
+                <div class="bg-emerald-800 p-10 text-white flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6">اتصل بنا</h2>
+                        <p class="mb-10 text-emerald-100">نحن في خدمتك لتنفيذ أرقى أعمال الرخام والجرانيت. تواصل معنا للحصول على استشارة مجانية.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <i class="fa-solid fa-phone text-amber-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">رقم الهاتف</h4>
+                                    <p class="text-emerald-100 font-bold text-xl" dir="ltr">011 420 42691</p>
+                                    <p class="text-emerald-200 text-sm mt-1">متاح واتساب واتصال</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <i class="fa-solid fa-location-dot text-amber-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">موقعنا</h4>
+                                    <p class="text-emerald-100">مصر (نصلك أينما كنت)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <i class="fa-solid fa-envelope text-amber-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold">ساعات العمل</h4>
+                                    <p class="text-emerald-100">يومياً من 9 صباحاً - 10 مساءً</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h4 class="font-bold mb-4">تواصل معنا عبر</h4>
+                        <div class="flex gap-4">
+                            <a href="https://wa.me/201142042691" target="_blank" class="w-10 h-10 bg-emerald-700 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="#" class="w-10 h-10 bg-emerald-700 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" class="w-10 h-10 bg-emerald-700 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="p-10">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">اطلب عرض سعر</h2>
+                    <form onsubmit="event.preventDefault(); alert('شكراً لتواصلك معنا! سيقوم فريق فجر الإسلام بالاتصال بك قريباً.');" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-600 mb-2 text-sm">الاسم</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition" placeholder="الاسم الكريم" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-2 text-sm">رقم الهاتف</label>
+                                <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition" placeholder="01xxxxxxxxx" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-600 mb-2 text-sm">نوع الخدمة</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
+                                <option>تركيب أرضيات</option>
+                                <option>سلالم ودرج</option>
+                                <option>مطابخ</option>
+                                <option>واجهات</option>
+                                <option>أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-600 mb-2 text-sm">تفاصيل الطلب</label>
+                            <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition" placeholder="اكتب المساحة التقريبية أو نوع الرخام المطلوب..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-lg hover:bg-emerald-700 transition shadow-md">
+                            إرسال الطلب
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <i class="fa-solid fa-gem text-amber-500 text-xl"></i>
+                <span class="text-xl font-bold">فجر الإسلام</span>
+            </div>
+            <p class="text-gray-400 text-sm mb-4">جميع الحقوق محفوظة &copy; 2024 مؤسسة فجر الإسلام للرخام والجرانيت</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-lg', 'py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+    </script>
+</body>
+</html>
